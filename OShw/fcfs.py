@@ -1,24 +1,36 @@
-#pcb[]={'ID':'A','arrivalTime':0,'serviceTime':4,'prior':4,'finishTime':5,'RTime':2,'WRTime':2}
+'''
+pcb=[]
+pcb=append(
+        {
+        'ID':'A','arrivalTime':0,'serviceTime':4,
+        'prior':4,'completeTime':5,
+        'RTime':2,'WRTime':2    
+        }
+    )
+
 #输入函数
 
-'''
 def inputPcb():
     i = 0
     pcb=[]
     n = int(input("请输入你的进程数目："))
     while(i < n):
-        print("-------------------------------------")
-        pID = chr(65+i)#将进程名命名为A,B,C,D,...
+        pID = chr(65+i)
         print("请输入进程%s信息："%pID)
         arriveTime = int(input("到达时间:\t"))
         serviceTime = int(input("服务时间:\t"))
         piror = int(input("优先级:\t"))
-        #进程名，到达时间，服务时间，开始，完成，周转，带权周转，优先级
-        pcb.append([pID, arriveTime, serviceTime, 0, 0, 0, 0, piror]) 
-        #id, arrivetime, servicetime have occupied 0,1,2 poistion in array pcb
+        pcb.append(
+                    {
+                    'ID':pID,'arrivalTime':arriveTime,
+                    'serviceTime':serviceTime,'startTime':0,'completeTime':0,
+                    'RTime':0,'WRTime':0,'prior':piror,'waitTime':0
+                }
+            )
         i += 1
     return pcb
 '''
+
 #先进先服务算法
 def FCFS(PCB):
     pcb=PCB
@@ -175,9 +187,11 @@ def PSA(PCB):
     print("-----PSA-----")
     n=len(pcb);i = 1;k = 0
     #对就绪队列按照优先级排序
-    temp_pcb = pcb[0:n]   #存放就绪队列到temp n为进程数
-    temp_pcb.sort(key=lambda x: x[7], reverse=False)#按优先级排序
+
+    temp_pcb = pcb[0:n]   
+    temp_pcb.sort(key=lambda x: x[7], reverse=False)
     pcb[0:n] = temp_pcb
+    
     #定义列表的第一项内容
     startTime0 = int(pcb[0][1])
     pcb[0][3] = startTime0                      #到达时间
@@ -246,7 +260,7 @@ def HRRN(PCB):
             pcb[i][4] = startTime + int(pcb[i][2]) #the finish time of process i
             print("当前时间: %d\t当前进程 %s\t当前响应比: %d\t等待时间: %d"%(pcb[i][3],pcb[i][0],pcb[i][7],pcb[i][8]))
             continue
-        sumTime=sumTime + pcb[i-1][4]                       #第i个进程后包括其第i个本身的等待时间
+        sumTime=pcb[i-1][4]                       #第i个进程后包括其第i个本身的等待时间
         pcb=priorSort(sumTime,i,pcb)
         if(i > 0 and int(pcb[i - 1][4]) < int(pcb[i][1])):
             #如果当前进程的进入时间晚于前一个进程的完成的时间
@@ -272,8 +286,9 @@ def HRRN(PCB):
     for i in range(n):
         SzzTime = float(SzzTime + float(pcb[i][5]))
         SdqzzTime = float(SdqzzTime + float(pcb[i][6]))
-        AzzTime = float(SzzTime / n)
-        AdqzzTime = float(SdqzzTime / n)
+    AzzTime = float(SzzTime / n)
+    AdqzzTime = float(SdqzzTime / n)
+
     # 输出结果，按照开始时间进行排序
     pcb.sort(key=lambda x: x[3], reverse=False)
     print("运行结果:")
@@ -284,13 +299,15 @@ def HRRN(PCB):
     print("本次调度的平均周转时间为:\t%.2f" % float(AzzTime))
     print("本次调度的平均带权周转时间为:\t%.2f" % float(AdqzzTime))
 
+
 #优先级重新计算与排序
 def priorSort(sumTime,i,pcb):
     j=i
     n=len(pcb)
     for j in range(n):
-        pcb[j][8]=sumTime                         #待会改一波pcb范围
+        pcb[j][8]=sumTime                         
         pcb[j][7]=(pcb[j][8]+pcb[j][2])/pcb[j][2] #计算当前进程及以后的响应比
+
     #优先级 = (作业已等待时间 + 作业的服务时间) / 作业的服务时间
     #对i-n就绪队列重新按照优先级排序
     j=i
@@ -312,7 +329,7 @@ if __name__ == "__main__":
     pcb_test.append(['D', 3, 2, 0, 0, 0, 0, 1, 0])
     pcb_test.append(['E', 4, 4, 0, 0, 0, 0, 2, 0])
     while(True):
-        option=int(input("choose your method to start( 1.FCFS / 2.SJF / 3.PSA / 4.HRRN / 5.ALL):"))
+        option=int(input("选择调度算法( 1.FCFS / 2.SJF / 3.PSA / 4.HRRN ):"))
         if(option==1):
             FCFS(pcb_test)
         if(option==2):
@@ -320,9 +337,4 @@ if __name__ == "__main__":
         if(option==3):
             PSA(pcb_test)
         if(option==4):
-            HRRN(pcb_test)
-        if(option==5):
-            FCFS(pcb_test)
-            SJF(pcb_test)
-            PSA(pcb_test)
             HRRN(pcb_test)
