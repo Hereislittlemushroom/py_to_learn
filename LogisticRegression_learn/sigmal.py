@@ -137,3 +137,4 @@ plt.xticks(()) #x轴标度
 plt.yticks(()) ##没有y轴标度
 plt.legend(loc=2) #左上角绘制图标
 plt.show()
+"""
