@@ -1,9 +1,34 @@
-from pyecharts import Bar
+import datetime
+import random
 
-attr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-v1 = [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-v2 = [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-bar = Bar("Bar chart", "precipitation and evaporation one year")
-bar.add("precipitation", attr, v1, mark_line=["average"], mark_point=["max", "min"])
-bar.add("evaporation", attr, v2, mark_line=["average"], mark_point=["max", "min"])
-bar.render()
+from pyecharts import options as opts
+from pyecharts.charts import Calendar
+
+
+def calendar_base() -> Calendar:
+    begin = datetime.date(2017, 1, 1)
+    end = datetime.date(2017, 12, 31)
+    data = [
+        [str(begin + datetime.timedelta(days=i)), random.randint(1000, 25000)]
+        for i in range((end - begin).days + 1)
+    ]
+
+    c = (
+        Calendar()
+        .add("", data, calendar_opts=opts.CalendarOpts(range_="2017"))
+        .set_global_opts(
+            title_opts=opts.TitleOpts(title="Calendar-2017年微信步数情况"),
+            visualmap_opts=opts.VisualMapOpts(
+                max_=20000,
+                min_=500,
+                orient="horizontal",
+                is_piecewise=True,
+                pos_top="230px",
+                pos_left="100px",
+            ),
+        )
+    )
+    return c
+
+if __name__ == "__main__":
+    calendar_base().render()
