@@ -2,7 +2,7 @@ import datetime
 import random
 
 from pyecharts import options as opts
-from pyecharts.charts import Calendar
+from pyecharts import Calendar
 
 
 def calendar_base() -> Calendar:

@@ -123,7 +123,7 @@ class Form(QDialog):
         )
 
     def load_url(self):
-        url = QUrl("file:////Users/fangzeqiang/Desktop/EchartsGui/PyQt与echarts的简单结合/template.html")
+        url = QUrl(r"file:///Users/fangzeqiang/Desktop/EchartsGui/PyQt与echarts的简单结合/template.html")
         self.view.load(url)
         self.view.loadFinished.connect(self.set_options)
 
