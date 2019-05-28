@@ -2,8 +2,8 @@ import datetime
 import random
 
 from pyecharts import options as opts
-from pyecharts import Calendar
-
+from pyecharts.charts import Calendar
+#V1.0 pip3 install pyecharts -U
 
 def calendar_base() -> Calendar:
     begin = datetime.date(2017, 1, 1)

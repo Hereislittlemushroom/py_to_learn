@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019/1/28 14:23
-# @Author  : llc
+# @Author  : fangzeqiang_cover
 # @File    : test_js.py
 
+#V0.5 pip3 install pyecharts==0.5.11
 from PyQt5.QtCore import QUrl, Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QDialog, QApplication, QHBoxLayout, QWidget, QGridLayout, QLabel, QSpinBox, \
@@ -123,7 +124,7 @@ class Form(QDialog):
         )
 
     def load_url(self):
-        url = QUrl(r"file:///Users/fangzeqiang/Desktop/EchartsGui/PyQt与echarts的简单结合/template.html")
+        url = QUrl("file:////Users/fangzeqiang/Desktop/py_to_learn/PyQt_Echarts_GUI/template.html")
         self.view.load(url)
         self.view.loadFinished.connect(self.set_options)
 
