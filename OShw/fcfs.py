@@ -1,13 +1,7 @@
 '''
 pcb=[]
-pcb=append(
-        {
-        'ID':'A','arrivalTime':0,'serviceTime':4,
-        'prior':4,'completeTime':5,
-        'RTime':2,'WRTime':2    
-        }
-    )
-
+pcb=append({'ID':'A','arrivalTime':0,'serviceTime':4,'prior':4,'completeTime':5,'RTime':2,'WRTime':2 })
+'''
 #输入函数
 
 def inputPcb():
@@ -29,7 +23,6 @@ def inputPcb():
             )
         i += 1
     return pcb
-'''
 
 #先进先服务算法
 def FCFS(PCB):
