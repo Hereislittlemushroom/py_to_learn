@@ -1,8 +1,8 @@
-import tkinter
-from tkinter import *
+import tkinter         # 引入tkinter库
+from tkinter import *  # 从tkinter库中引入所有类型成员
 
-#横条框架
-def frame(root,side):
+#定义横条框架
+def frame(root,side):   #外部会输入
     f=Frame(root)
     f.pack(side=side,expand=YES,fill=BOTH)
     return f
